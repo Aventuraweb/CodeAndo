@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 7845
+      MONGO_INITDB_DATABASE: mydb
+    ports:
+      - "27017:27017"
+    networks:
+      - red
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - red
+    depends_on:
+      - mongo
+
+networks:
+  red:
+    driver: bridge
